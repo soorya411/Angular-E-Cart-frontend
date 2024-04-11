@@ -1,0 +1,106 @@
+<div style="margin-top: 80px;">
+    <!-- with product -->
+
+    <div class="container">
+
+        <div class="row mt-5" *ngIf="products.length!=0" >
+            <div class="col-md-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of products ; let i=index">
+                            <td scope="row">{{i+1}}</td>
+                            <td>{{product.id}}</td>
+                            <td>{{product.title}}</td>
+                            <td> <img [src]=product.image width="100px" alt=""></td>
+                            <td>
+                                <button (click)="cartDecrement(product.id)"  class="btn">-</button>
+                                <input type="text" [value]="product.quantity" readonly class="form-control w-25">
+                                <button (click)="cartIncrement(product.id)" class="btn">+</button>
+                            </td>
+
+                            <td>{{product.price}}</td>
+                            <td><i (click)="deleteCartProduct(product.id)" class="fa-solid fa-trash"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4 mt-3">
+                <div class="card shadow">
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h5 class="fw-bolder mb-4">Cart Summary</h5>
+                            <!-- Product price-->
+                            TOTAL:- $ {{totalPrice}}
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-outline-success mt-3" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">Check Out</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Check Out Details</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <h5 class="text-center m-3">Enter Your Details</h5>
+         <input style="outline: none;" type="text" class="form-control mb-3" placeholder="Name" required>
+         <input type="text" class="form-control mb-3" placeholder="phone number" required>
+         <input type="text" class="form-control mb-3" placeholder="Address" required>
+         <h5 class="text-center m-3"> TOTAL PRICE:- $ {{totalPrice}}</h5>
+
+        </div>
+        <div *ngIf="makepaymentStatus">
+            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
+        </div>
+        <div class="modal-footer">
+          <button (click)="makepayment()" type="button" class="btn btn-success">Make Payment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <!-- without product -->
+    <div class="container ">
+        <div *ngIf="products.length==0"  class="row gx-5 d-flex align-items-center justify-content-center">
+            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                <div class="text-center">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/005/006/007/small_2x/no-item-in-the-shopping-cart-click-to-go-shopping-now-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg"
+                        alt="empty-cart">
+                </div>
+                <h2 class="text-center"><b>Your Shopping Bag is Empty!!
+
+                    </b></h2>
+
+                <p>Sign in to link items to your account, or view items already in your account
+                </p>
+                <div class="text-center">
+                    <button routerLink="/" class="btn  btn-primary rounded-3 mb-3">CONTINUE SHOPPING</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

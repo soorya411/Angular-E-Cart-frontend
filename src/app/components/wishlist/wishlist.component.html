@@ -1,0 +1,61 @@
+<div style="margin-top: 80px;">
+    <!-- with product -->
+   
+    <div class="div">
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div *ngFor="let product of wishlistArray" class="col mb-5">
+                    <div class="card h-100 shadow">
+                        <!-- Product image-->
+                        <img style="height: 250px;object-fit: contain;" class="card-img-top" [src]=product.image alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div> -->
+
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder">{{product.title}}</h5>
+                                <!-- Product price-->
+                                ${{product.price}}
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center justify-content-sm-center">
+
+                           <i (click)="deleteWishlistProduct(product.id)" class="fa-solid fa-trash ms-3 me-5" style="color: #fd0808;"></i>   
+                                <i routerLink="user/cart" class="fa-solid fa-cart-plus " style="color: green"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+    </section>
+   
+   </div>
+   <!-- without product -->
+   <div class="div">
+    <div class="container ">
+        <div class="row gx-5 d-flex align-items-center justify-content-center">
+            <div *ngIf="wishlistArray.length==0" class="col-lg-8 col-xl-7 col-xxl-6">
+                <div class="text-center">
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/005/006/007/small_2x/no-item-in-the-shopping-cart-click-to-go-shopping-now-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg"
+                    alt="empty-cart">
+                </div>
+                <h2 class="text-center"><b>Your wishlist is empty</b></h2>
+
+                <p>Looks like you have not added anything to you wishlist.
+                    Go ahead & explore top categories.
+                </p>
+                <div class="text-center">
+                    <button routerLink="/" class="btn  btn-danger rounded-3 mb-3">Shop Now</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+</div>
